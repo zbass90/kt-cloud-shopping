@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.kt.dto.UserCreateRequest;
 import com.kt.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,7 +21,8 @@ public class UserController {
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public void create(@RequestBody UserCreateRequest request) {
+	public void create(@Valid @RequestBody UserCreateRequest request) {
 		userService.create(request);
 	}
 }
+
