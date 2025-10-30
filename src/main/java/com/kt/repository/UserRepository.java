@@ -13,16 +13,36 @@ public class UserRepository {
 	private final JdbcTemplate jdbcTemplate;
 	public void save(User user) {
 		String sql = """
-  			INSERT INTO MEMBER (loginId, password, name, birthday)
-  			VALUES (?, ?, ?, ?);
+  			INSERT INTO MEMBER (
+  													id,
+  													loginId,
+  													password,
+  													name,
+  													birthday,
+  													mobile,
+  													email,
+  													gender,
+  													createdAt,
+  													updatedAt)
+  			VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
 		""";
 		jdbcTemplate.update(sql,
-			user.getLoginId(), user.getPassword(), user.getName(), user.getBirthday());
+			user.getId(),
+			user.getLoginId(),
+			user.getPassword(),
+			user.getName(),
+			user.getBirthday(),
+			user.getMobile(),
+			user.getEmail(),
+			user.getGender().name(),
+			user.getCreatedAt(),
+			user.getUpdatedAt()
+		);
 	}
 
 	public Long selectMaxId() {
 		var sql = "SELECT MAX(id) FROM MEMBER";
-
-		return jdbcTemplate.queryForObject(sql, Long.class);
+		var maxId = jdbcTemplate.queryForObject(sql, Long.class);
+		return maxId == null ? 0L : maxId;
 	}
 }
