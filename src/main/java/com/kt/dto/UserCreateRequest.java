@@ -11,8 +11,6 @@ import jakarta.validation.constraints.Pattern;
 
 public record UserCreateRequest(
 	@NotBlank
-	Long id,
-	@NotBlank
 	String loginId,
 	@NotBlank
 	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^])[A-Za-z\\d!@#$%^]{8,}$")
