@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Service;
 
 import com.kt.domain.User;
+import com.kt.dto.CustomPage;
 import com.kt.dto.UserCreateRequest;
 import com.kt.repository.UserRepository;
 
@@ -53,5 +54,18 @@ public class UserService {
 		}
 
 		userRepository.updatePassword(id, password);
+	}
+
+	public CustomPage search(int page, int size) {
+		var pair = userRepository.selectAll(page - 1, size);
+		var pages = (int) Math.ceil((double) pair.getSecond() / size);
+
+		return new CustomPage(
+			pair.getFirst(),
+			size,
+			page,
+			pages,
+			pair.getSecond()
+		);
 	}
 }
