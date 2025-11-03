@@ -108,6 +108,12 @@ public class UserRepository {
 		return Pair.of(users, totalElements);
 	}
 
+	public void updateById(Long id, String name, String email, String mobile) {
+		var sql = "UPDATE MEMBER SET name = ?, email = ?, mobile = ? WHERE id = ?";
+
+		jdbcTemplate.update(sql, name, email, mobile, id);
+	}
+
 	private RowMapper<User> rowMapper() {
 		return (rs, rowNum) -> mapToUser(rs);
 		// () -> {} 람다는 단일 실행문이면 {} 와 return 생략이 가능하다
