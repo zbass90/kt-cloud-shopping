@@ -19,4 +19,15 @@ public class UserRepository {
 		jdbcTemplate.update(sql,
 			user.getLoginId(), user.getPassword(), user.getName(), user.getBirthday());
 	}
+
+	// 크게 세가지 정도 아이디 중복 체크 방법
+	// 1. count해서 0보다 큰지 체크 -> 전 별로 좋아보이진않음
+	// db에 만약 유저가 3000만명 -> 1번 중복체크할때마다 3천개의 데이터를 모두 살펴봐야함(full-scan)
+	// 2. unique 제약조건 걸어서 예외 처리 -> 유니크키에러 (DataViolation Exception)별로 좋아보이진 않음
+	// 3. exists로 존재 여부 체크 -> boolean으로 값 존재 여부를 바로 알 수 있음
+	public boolean existsByLoginId(String loginId) {
+		var sql = "SELECT EXISTS (SELECT id FROM MEMBER WHERE loginId = ?)";
+
+		return Boolean.TRUE.equals(jdbcTemplate.queryForObject(sql, Boolean.class));
+	}
 }
