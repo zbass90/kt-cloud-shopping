@@ -56,8 +56,8 @@ public class UserService {
 		userRepository.updatePassword(id, password);
 	}
 
-	public CustomPage search(int page, int size) {
-		var pair = userRepository.selectAll(page - 1, size);
+	public CustomPage search(int page, int size, String keyword) {
+		var pair = userRepository.selectAll(page - 1, size, keyword);
 		var pages = (int) Math.ceil((double) pair.getSecond() / size);
 
 		return new CustomPage(
