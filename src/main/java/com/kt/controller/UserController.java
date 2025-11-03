@@ -1,9 +1,11 @@
 package com.kt.controller;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -31,6 +33,17 @@ public class UserController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public void create(@Valid @RequestBody UserCreateRequest request) {
 		userService.create(request);
+	}
+
+
+	// /users/duplicate-login-id?loginId=ktuser
+	// IllegalArgumentException 발생 시 400에러
+	// GET에서 쓰는 queryString
+	// @RequestParam의 속성은 기본이 required = true
+	@GetMapping("/duplicate-login-id")
+	@ResponseStatus(HttpStatus.OK)
+	public Boolean isDuplicateLoginId(@RequestParam String loginId) {
+		return userService.isDuplicateLoginId(loginId);
 	}
 }
 
