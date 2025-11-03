@@ -68,4 +68,9 @@ public class UserService {
 			pair.getSecond()
 		);
 	}
+
+	public User detail(Long id) {
+		return userRepository.selectById(id)
+			.orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
+	}
 }
