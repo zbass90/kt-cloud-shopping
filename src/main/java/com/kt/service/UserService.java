@@ -1,14 +1,11 @@
 package com.kt.service;
 
-import java.time.LocalDateTime;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kt.domain.User;
-import com.kt.dto.CustomPage;
+import com.kt.domain.user.User;
 import com.kt.dto.UserCreateRequest;
 import com.kt.repository.UserJDBCRepository;
 import com.kt.repository.UserRepository;

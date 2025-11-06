@@ -1,10 +1,11 @@
-package com.kt.domain;
+package com.kt.domain.user;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.kt.common.BaseEntity;
 import com.kt.dto.UserCreateRequest;
 
 import jakarta.persistence.Entity;
@@ -12,7 +13,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class User {
+public class User extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -31,8 +31,6 @@ public class User {
 	private String mobile;
 	private Gender gender;
 	private LocalDate birthday;
-	private LocalDateTime createdAt;
-	private LocalDateTime updatedAt;
 
 	@Builder(access = AccessLevel.PRIVATE)
 	public User(String loginId, String password, String name, String email, String mobile, Gender gender,

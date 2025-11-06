@@ -3,7 +3,7 @@ package com.kt.dto;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import com.kt.domain.Gender;
+import com.kt.domain.user.Gender;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

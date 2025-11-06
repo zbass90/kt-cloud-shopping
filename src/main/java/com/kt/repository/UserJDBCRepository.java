@@ -1,8 +1,5 @@
 package com.kt.repository;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -12,8 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import com.kt.domain.Gender;
-import com.kt.domain.User;
+import com.kt.domain.user.User;
 
 import lombok.RequiredArgsConstructor;
 

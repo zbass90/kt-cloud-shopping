@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kt.domain.User;
+import com.kt.domain.user.User;
 import com.kt.dto.UserUpdateRequest;
 import com.kt.service.UserService;
 
@@ -32,11 +32,8 @@ public class AdminUserController {
 		@RequestParam(defaultValue = "10") int size,
 		@RequestParam(required = false) String keyword
 	) {
-		return userService.search(
-			PageRequest.of(page - 1, size),
-			keyword
-		);
-
+		PageRequest pageRequest = PageRequest.of(page - 1, size);
+		return userService.search(pageRequest, keyword);
 	}
 
 	// 유저 상세 조회

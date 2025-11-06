@@ -11,11 +11,12 @@ spring:
       #validate = 테이블이랑 entity랑 맞는지 확인만
       #none = 아무것도 안함
       #create-drop = create랑 똑같은데 애플리케이션 종료시점에 테이블을 drop함 => 테스트코드에서만 쓰세요
-      ddl-auto: create
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
+#        dialect: org.hibernate.dialect.MySQLDialect
+#        Hibernate가 자동으로 MySQL 5.x, 8.x 등을 감지해서 적절한 Dialect를 사용해서 생략가능함
         jdbc:
           time_zone: Asia/Seoul
         show_sql: true #로컬에서만
