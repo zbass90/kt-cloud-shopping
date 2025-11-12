@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.5.7'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.epages.restdocs-api-spec' version '0.19.4'
 }
 
 group = 'com.kt'
@@ -29,16 +30,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 
 	compileOnly 'org.projectlombok:lombok'
-
-	runtimeOnly 'com.mysql:mysql-connector-j'
-	runtimeOnly 'com.h2database:h2'
-
 	annotationProcessor 'org.projectlombok:lombok'
 
+	runtimeOnly 'com.mysql:mysql-connector-j'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+	testImplementation 'com.epages:restdocs-api-spec-mockmvc:0.19.4'
 
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
@@ -47,3 +47,28 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+openapi3 {
+	servers = [
+			{ url = 'http://localhost:8080' }
+			// 필요시 "https://dev.myapi.com", "https://prod.myapi.com" ...
+	]
+	title = 'My API'
+	description = 'My API description'
+	version = '0.1.0'
+	format = 'yaml'
+}
+
+tasks.register('copyOasToSwagger', Copy) {
+	dependsOn tasks.named('openapi3')
+
+	from(layout.buildDirectory.file("api-spec/openapi3.yaml"))
+	into(layout.projectDirectory.dir("src/main/resources/static/swagger-ui"))
+
+	inputs.file(layout.buildDirectory.file("api-spec/openapi3.yaml"))
+	outputs.file(layout.projectDirectory.file("src/main/resources/static/swagger-ui/openapi3.yaml"))
+
+	doFirst {
+		def target = layout.projectDirectory.file("src/main/resources/static/swagger-ui/openapi3.yaml").asFile
+		if (target.exists()) target.delete()
+	}
+}
