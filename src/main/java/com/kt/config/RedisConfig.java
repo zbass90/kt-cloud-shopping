@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
-public class RedisConfiguration {
+public class RedisConfig {
 
 	private final RedisProperties redisProperties;
 	private static final String REDISSON_ADDRESS_FORMAT = "redis://%s:%s";

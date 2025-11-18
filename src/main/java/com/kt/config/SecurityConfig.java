@@ -17,11 +17,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
-public class SecurityConfiguration {
-	// 패스워드 저장할거면 암호화해
-	// bcrypt단방향해시암호화
-	// 평문은 5번 해싱해서 랜덤한 값을 저장함 -> 비교할때는 5번해싱해서 같은지를 비교
-
+public class SecurityConfig {
 	private static final String[] GET_PERMIT_ALL = {"/api/health/**"};
 	private static final String[] POST_PERMIT_ALL = {"/api/v1/public/**"};
 	private static final String[] PUT_PERMIT_ALL = {"/api/v1/public/**"};
